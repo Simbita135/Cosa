@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>El Juego del Siglo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #ffebee;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            text-align: center;
+            max-width: 400px;
+            width: 100%;
+        }
+        h1 {
+            color: #f48fb1;
+        }
+        .question {
+            margin: 15px 0;
+            display: none;
+        }
+        button {
+            background-color: #f48fb1;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #f06292;
+        }
+        .result {
+            display: none;
+            margin-top: 20px;
+        }
+        .result p {
+            font-size: 1.2em;
+        }
+        label {
+            font-size: 1.1em;
+        }
+        .result img {
+            max-width: 100%;
+            border-radius: 10px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>El Juego del Siglo</h1>
+        <div class="question" id="question1">
+            <p>¿Qué día es hoy?</p>
+            <input type="radio" id="day13" name="day" value="13">
+            <label for="day13">13</label><br>
+            <input type="radio" id="day24" name="day" value="24">
+            <label for="day24">24</label><br>
+            <button onclick="checkAnswer('day')">Enviar</button>
+        </div>
+        <div class="question" id="question2">
+            <p>¿Qué mes es hoy?</p>
+            <input type="radio" id="monthFeb" name="month" value="Febrero">
+            <label for="monthFeb">Febrero</label><br>
+            <input type="radio" id="monthJul" name="month" value="Julio">
+            <label for="monthJul">Julio</label><br>
+            <button onclick="checkAnswer('month')">Enviar</button>
+        </div>
+        <div class="question" id="question3">
+            <p>¿Cuántos meses llevamos juntos?</p>
+            <input type="radio" id="months5" name="months" value="5">
+            <label for="months5">5</label><br>
+            <input type="radio" id="months11" name="months" value="11">
+            <label for="months11">11</label><br>
+            <button onclick="checkAnswer('months')">Enviar</button>
+        </div>
+        <div class="result" id="result">
+            <p id="message"></p>
+            <img id="resultImage" src="" alt="">
+        </div>
+    </div>
+
+    <script>
+        function checkAnswer(question) {
+            let correctAnswer;
+            let userAnswer;
+
+            if (question === 'day') {
+                userAnswer = document.querySelector('input[name="day"]:checked') ? document.querySelector('input[name="day"]:checked').value : "";
+                correctAnswer = "24";
+            } else if (question === 'month') {
+                userAnswer = document.querySelector('input[name="month"]:checked') ? document.querySelector('input[name="month"]:checked').value : "";
+                correctAnswer = "Julio";
+            } else if (question === 'months') {
+                userAnswer = document.querySelector('input[name="months"]:checked') ? document.querySelector('input[name="months"]:checked').value : "";
+                correctAnswer = "11";
+            }
+
+            if (userAnswer === correctAnswer) {
+                if (question === 'day') {
+                    document.getElementById('question1').style.display = 'none';
+                    document.getElementById('question2').style.display = 'block';
+                    document.getElementById('result').style.display = 'none';
+                } else if (question === 'month') {
+                    document.getElementById('question2').style.display = 'none';
+                    document.getElementById('question3').style.display = 'block';
+                    document.getElementById('result').style.display = 'none';
+                } else if (question === 'months') {
+                    document.getElementById('question3').style.display = 'none';
+                    document.getElementById('message').innerText = "¡Correcto! ¡Te amo mucho! Gracias por estos 11 meses el cuasi año juntos. ¡Eres mi todo gracias por aguantarme!";
+                    document.getElementById('resultImage').src = "https://j.gifs.com/yNA86Z.gif";
+                    document.getElementById('result').style.display = 'block';
+                }
+            } else {
+                document.getElementById('message').innerText = "Aja repite.";
+                document.getElementById('resultImage').src = "https://i.pinimg.com/originals/30/29/51/3029517e824f67d07d86af9bf0b0d795.gif";
+                document.getElementById('result').style.display = 'block';
+            }
+        }
+
+        document.getElementById('question1').style.display = 'block';
+    </script>
+</body>
+</html>
